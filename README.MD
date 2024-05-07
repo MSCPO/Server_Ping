@@ -44,3 +44,5 @@ client|N/A|服务器类型（BE/JE）
 
 项目基于 [PHP-Minecraft-Query](https://github.com/xPaw/PHP-Minecraft-Query) 和 [motd-for-minecraft](https://github.com/PluginsKers/motd-for-minecraft/)
 经过了完整的重写和逻辑替换，如有错误请提出Issure和Pull
+
+本项目由[Minecraft服务器集体宣传组织（MSCPO）维护](http://mscpo.netlify.app/)
