@@ -14,7 +14,10 @@ header("Access-Control-Allow-Origin: *");
 header('Content-type: application/json');
 error_reporting(0);
 
-$api_version = 'v0.5.7';
+$api_version = 'v0.5.71';
+
+// 获取当前运行脚本的服务器的IP地址
+$api_nodeIP = $_SERVER['SERVER_ADDR'];
 
 $array = [
 	'code' => 201,
@@ -23,6 +26,7 @@ $array = [
 	'ip' => 'N/A',
 	// 'real' => 'N/A',
 	'location' => 'N/A',
+	'api_node' => $Utils->getLocation($api_nodeIP),
 	'port' => 'N/A',
 	'motd' => 'N/A',
 	'agreement' => 'N/A',
@@ -43,10 +47,6 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 		define('MQ_SERVER_ADDR', $_REQUEST['ip'] );
 		define('MQ_SERVER_PORT', $_REQUEST['port']);
 		define('MQ_TIMEOUT', 1);
-
-		// 将所有内容显示在浏览器中，因为有些人无法查看日志以查找错误。
-		error_reporting( E_ALL | E_STRICT );
-		ini_set( 'display_errors', '1' );
 
 		require __DIR__ . '/src/MinecraftPing.php';
 		require __DIR__ . '/src/MinecraftPingException.php';
@@ -96,6 +96,7 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 				'ip' => 'N/A',
 				// 'real' => 'N/A',
 				'location' => 'N/A',
+				'api_node' => $Utils->getLocation($api_nodeIP),
 				'port' => 'N/A',
 				'motd' => 'N/A',
 				'agreement' => 'N/A',
@@ -108,7 +109,11 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 			];
 		} else {
 			// 获取所有已被分割的motd的'text'键的值并将这些值拼接成一个字符串
-			$textValues = array_column($Info['description']['extra'], 'text');
+			if (isset($Info['description']['extra']) && is_array($Info['description']['extra'])) {
+				$textValues = array_column($Info['description']['extra'], 'text');
+			} else {
+				$textValues = $Info['description'];
+			}
 			$concatenatedText = implode($textValues);
 			$real = gethostbyname($ip);
 			$array = [
@@ -118,6 +123,7 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 				'ip' => $ip,
 				// 'real' => $real,
 				'location' => $Utils->getLocation($real),
+				'api_node' => $Utils->getLocation($api_nodeIP),
 				'port' => $port,
 				'motd' => $concatenatedText,
 				'agreement' => $Info['version']['protocol'],
@@ -149,6 +155,7 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 					'ip' => $ip,
 					// 'real' => $real,
 					'location' => $Utils->getLocation($real),
+					'api_node' => $Utils->getLocation($api_nodeIP),
 					'port' => $port,
 					'motd' => $data['1'],
 					'agreement' => $data['2'],
