@@ -34,35 +34,14 @@ class Utils
 		return false;
 	}
 
-	public function getLocation($ip = false, $maxRetries = 3)
+	public function getLocation($ip = false)
 	{
 		$ip = !$ip ? $this->getRealIp() : $ip;
-		$retries = 0;
-		$s = false;
-	
-		while ($retries < $maxRetries) {
-			try {
-				$s = file_get_contents("http://whois.pconline.com.cn/ip.jsp?ip={$ip}", true);
-				if ($s !== false) {
-					break; // 如果请求成功，则退出循环
-				}
-			} catch (Exception $e) {
-				// 忽略异常，继续重试
-			}
-	
-			$retries++;
-			sleep(1); // 暂停1秒再重试
-		}
-	
-		if ($s === false) {
-			// 如果在最大重试次数后仍然失败，可以选择抛出异常或返回默认值
-			throw new Exception('Failed to get location after ' . $maxRetries . ' attempts.');
-		}
-	
+		$s = file_get_contents("http://whois.pconline.com.cn/ip.jsp?ip={$ip}", true);
 		$encode = mb_detect_encoding($s, array("ASCII", 'UTF-8', "GB2312", "GBK", 'BIG5'));
 		$s = mb_convert_encoding($s, 'UTF-8', $encode);
 		$s = str_replace(PHP_EOL, '', $s);
-		$s = str_replace("\\r", '', $s);
+		$s = str_replace("\r", '', $s);
 		return $s;
 	}
 }

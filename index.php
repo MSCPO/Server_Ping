@@ -48,10 +48,6 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 		define('MQ_SERVER_PORT', $_REQUEST['port']);
 		define('MQ_TIMEOUT', 1);
 
-		// 将所有内容显示在浏览器中，因为有些人无法查看日志以查找错误。
-		error_reporting( E_ALL | E_STRICT );
-		ini_set( 'display_errors', '1' );
-
 		require __DIR__ . '/src/MinecraftPing.php';
 		require __DIR__ . '/src/MinecraftPingException.php';
 
