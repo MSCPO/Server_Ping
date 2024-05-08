@@ -16,6 +16,9 @@ error_reporting(0);
 
 $api_version = 'v0.5.7';
 
+// 获取当前运行脚本的服务器的IP地址
+$serverIP = $_SERVER['SERVER_ADDR'];
+
 $array = [
 	'code' => 201,
 	'api_version' => $api_version,
@@ -23,6 +26,7 @@ $array = [
 	'ip' => 'N/A',
 	// 'real' => 'N/A',
 	'location' => 'N/A',
+	'api_node' => $Utils->getLocation($serverIP),
 	'port' => 'N/A',
 	'motd' => 'N/A',
 	'agreement' => 'N/A',
@@ -96,6 +100,7 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 				'ip' => 'N/A',
 				// 'real' => 'N/A',
 				'location' => 'N/A',
+				'api_node' => $Utils->getLocation($serverIP),
 				'port' => 'N/A',
 				'motd' => 'N/A',
 				'agreement' => 'N/A',
@@ -122,6 +127,7 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 				'ip' => $ip,
 				// 'real' => $real,
 				'location' => $Utils->getLocation($real),
+				'api_node' => $Utils->getLocation($serverIP),
 				'port' => $port,
 				'motd' => $concatenatedText,
 				'agreement' => $Info['version']['protocol'],
@@ -153,6 +159,7 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 					'ip' => $ip,
 					// 'real' => $real,
 					'location' => $Utils->getLocation($real),
+					'api_node' => $Utils->getLocation($serverIP),
 					'port' => $port,
 					'motd' => $data['1'],
 					'agreement' => $data['2'],
