@@ -121,7 +121,7 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 				'status' => 'online',
 				'ip' => $ip,
 				// 'real' => $real,
-				'location' => $Utils->getLocation($ip),
+				'location' => $Utils->getLocation($real),
 				'port' => $port,
 				'motd' => $concatenatedText,
 				'agreement' => $Info['version']['protocol'],
