@@ -108,7 +108,11 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 			];
 		} else {
 			// 获取所有已被分割的motd的'text'键的值并将这些值拼接成一个字符串
-			$textValues = array_column($Info['description']['extra'], 'text');
+			if (isset($Info['description']['extra']) && is_array($Info['description']['extra'])) {
+				$textValues = array_column($Info['description']['extra'], 'text');
+			} else {
+				$textValues = $Info['description'];
+			}
 			$concatenatedText = implode($textValues);
 			$real = gethostbyname($ip);
 			$array = [
@@ -117,7 +121,7 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 				'status' => 'online',
 				'ip' => $ip,
 				// 'real' => $real,
-				'location' => $Utils->getLocation($real),
+				'location' => $Utils->getLocation($ip),
 				'port' => $port,
 				'motd' => $concatenatedText,
 				'agreement' => $Info['version']['protocol'],
