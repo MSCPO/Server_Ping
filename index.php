@@ -116,11 +116,6 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 			} else {
 				$textValues = $Info['description'];
 			}
-			if (isset($Info['favicon']) && ($_REQUEST['get_favicon'] ?? false)) {
-				$favicon = $Info['favicon'];
-			} else {
-				$favicon = 'N/A';
-			}
 			$concatenatedText = implode($textValues);
 			$real = gethostbyname($ip);
 			$array = [
@@ -132,7 +127,7 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 				'location' => $Utils->getLocation($real),
 				'api_node' => $Utils->getLocation($api_nodeIP),
 				'port' => $port,
-				'favicon' => $favicon,
+				'favicon' => $Info['favicon'],
 				'motd' => $concatenatedText,
 				'agreement' => $Info['version']['protocol'],
 				'version' => $Info['version']['name'],
