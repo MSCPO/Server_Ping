@@ -14,7 +14,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-type: application/json');
 error_reporting(0);
 
-$api_version = 'v0.5.71';
+$api_version = 'v0.5.72';
 
 // 获取当前运行脚本的服务器的IP地址
 $api_nodeIP = $_SERVER['SERVER_ADDR'];
@@ -28,6 +28,7 @@ $array = [
 	'location' => 'N/A',
 	'api_node' => $Utils->getLocation($api_nodeIP),
 	'port' => 'N/A',
+	'favicon' => 'N/A',
 	'motd' => 'N/A',
 	'agreement' => 'N/A',
 	'version' => 'N/A',
@@ -98,6 +99,7 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 				'location' => 'N/A',
 				'api_node' => $Utils->getLocation($api_nodeIP),
 				'port' => 'N/A',
+				'favicon' => 'N/A',
 				'motd' => 'N/A',
 				'agreement' => 'N/A',
 				'version' => 'N/A',
@@ -114,6 +116,11 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 			} else {
 				$textValues = $Info['description'];
 			}
+			if (isset($Info['favicon']) && ($_REQUEST['get_favicon'] ?? false)) {
+				$favicon = $Info['favicon'];
+			} else {
+				$favicon = 'N/A';
+			}
 			$concatenatedText = implode($textValues);
 			$real = gethostbyname($ip);
 			$array = [
@@ -125,6 +132,7 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 				'location' => $Utils->getLocation($real),
 				'api_node' => $Utils->getLocation($api_nodeIP),
 				'port' => $port,
+				'favicon' => $favicon,
 				'motd' => $concatenatedText,
 				'agreement' => $Info['version']['protocol'],
 				'version' => $Info['version']['name'],
@@ -157,6 +165,7 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 					'location' => $Utils->getLocation($real),
 					'api_node' => $Utils->getLocation($api_nodeIP),
 					'port' => $port,
+					'favicon' => 'N/A',
 					'motd' => $data['1'],
 					'agreement' => $data['2'],
 					'version' => $data['3'],
