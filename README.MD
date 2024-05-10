@@ -8,8 +8,8 @@
 
 参数|示例|描述
 -|-|-
-ip|mc.52craft.cc|服务器IP地址
-port|2020|服务器端口
+ip|aomemsc.giize.com|服务器IP地址
+port|25565|服务器端口
 java|null|获取基岩服信息
 
 ### 返回参数 ###
@@ -43,7 +43,8 @@ JAVA服务器请求示例`index.php?ip=example.com&port=25565`
 202|无法建立UDP连接（基岩版）
 203|无法解析Hex（基岩版）
 
-项目基于 [PHP-Minecraft-Query](https://github.com/xPaw/PHP-Minecraft-Query) 和 [motd-for-minecraft](https://github.com/PluginsKers/motd-for-minecraft/)
+项目基于 [PHP-Minecraft-Query](https://github.com/xPaw/PHP-Minecraft-Query) 
+借鉴了[motd-for-minecraft](https://github.com/PluginsKers/motd-for-minecraft/)
 经过了完整的重写和逻辑替换，如有错误请提出Issure和Pull
 
 本项目由[Minecraft服务器集体宣传组织（MSCPO）维护](http://mscpo.netlify.app/)
