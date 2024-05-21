@@ -14,7 +14,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-type: application/json');
 error_reporting(0);
 
-$api_version = 'v0.5.71';
+$api_version = 'v0.5.75';
 
 // 获取当前运行脚本的服务器的IP地址
 $api_nodeIP = $_SERVER['SERVER_ADDR'];
@@ -25,9 +25,10 @@ $array = [
 	'status' => 'offine',
 	'ip' => 'N/A',
 	// 'real' => 'N/A',
-	'location' => 'N/A',
-	'api_node' => $Utils->getLocation($api_nodeIP),
+	// 'location' => 'N/A',
+	// 'api_node' => $Utils->getLocation($api_nodeIP),
 	'port' => 'N/A',
+	'favicon' => 'N/A',
 	'motd' => 'N/A',
 	'agreement' => 'N/A',
 	'version' => 'N/A',
@@ -47,6 +48,10 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 		define('MQ_SERVER_ADDR', $_REQUEST['ip'] );
 		define('MQ_SERVER_PORT', $_REQUEST['port']);
 		define('MQ_TIMEOUT', 1);
+
+		// 将所有内容显示在浏览器中，因为有些人无法查看日志以查找错误。
+		// error_reporting( E_ALL | E_STRICT );
+		// ini_set( 'display_errors', '1' );
 
 		require __DIR__ . '/src/MinecraftPing.php';
 		require __DIR__ . '/src/MinecraftPingException.php';
@@ -95,9 +100,10 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 				'status' => 'offine',
 				'ip' => 'N/A',
 				// 'real' => 'N/A',
-				'location' => 'N/A',
-				'api_node' => $Utils->getLocation($api_nodeIP),
+				// 'location' => 'N/A',
+				// 'api_node' => $Utils->getLocation($api_nodeIP),
 				'port' => 'N/A',
+				'favicon' => 'N/A',
 				'motd' => 'N/A',
 				'agreement' => 'N/A',
 				'version' => 'N/A',
@@ -113,6 +119,11 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 				$textValues = array_column($Info['description']['extra'], 'text');
 			} else {
 				$textValues = $Info['description'];
+			};
+			if (isset($Info['favicon']) && ($_REQUEST['get_favicon'] ?? false)) {
+				$favicon = $Info['favicon'];
+			} else {
+				$favicon = 'N/A';
 			}
 			$concatenatedText = implode($textValues);
 			$real = gethostbyname($ip);
@@ -122,9 +133,10 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 				'status' => 'online',
 				'ip' => $ip,
 				// 'real' => $real,
-				'location' => $Utils->getLocation($real),
-				'api_node' => $Utils->getLocation($api_nodeIP),
+				// 'location' => $Utils->getLocation($real),
+				// 'api_node' => $Utils->getLocation($api_nodeIP),
 				'port' => $port,
+				'favicon' => $favicon,
 				'motd' => $concatenatedText,
 				'agreement' => $Info['version']['protocol'],
 				'version' => $Info['version']['name'],
@@ -154,9 +166,10 @@ if (!$Utils->hasEmpty($_REQUEST['ip'], $_REQUEST['port'])) {
 					'status' => 'online',
 					'ip' => $ip,
 					// 'real' => $real,
-					'location' => $Utils->getLocation($real),
-					'api_node' => $Utils->getLocation($api_nodeIP),
+					// 'location' => $Utils->getLocation($real),
+					// 'api_node' => $Utils->getLocation($api_nodeIP),
 					'port' => $port,
+					'favicon' => 'N/A',
 					'motd' => $data['1'],
 					'agreement' => $data['2'],
 					'version' => $data['3'],
