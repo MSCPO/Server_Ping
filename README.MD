@@ -30,6 +30,7 @@ max|10|服务器人数上限
 gamemode|Survival|游戏模式（仅限基岩版）
 delay|64|连接服务器延迟(ms)
 client|N/A|服务器类型（BE/JE）
+get_favicon=true|data:image|获取服务器图标
 
 JAVA服务器请求示例`index.php?ip=example.com&port=25565`
 基岩服务器请求示例`index.php?ip=example.com&port=19132&java=null`
