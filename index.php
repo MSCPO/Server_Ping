@@ -14,7 +14,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-type: application/json');
 error_reporting(0);
 
-$api_version = 'v0.5.75';
+$api_version = 'v0.5.76';
 
 // 获取当前运行脚本的服务器的IP地址
 if ($_REQUEST['get_nodeip']) {
