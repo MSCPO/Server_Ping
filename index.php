@@ -14,10 +14,15 @@ header("Access-Control-Allow-Origin: *");
 header('Content-type: application/json');
 error_reporting(0);
 
-$api_version = 'v0.5.75';
+$api_version = 'v0.5.76';
 
 // 获取当前运行脚本的服务器的IP地址
-$api_nodeIP = $_SERVER['SERVER_ADDR'];
+if ($_REQUEST['get_nodeip']) {
+	$api_nodeIP = $_SERVER['SERVER_ADDR'];
+} else {
+	$api_nodeIP = 'N/A';
+}
+
 
 $array = [
 	'code' => 201,
