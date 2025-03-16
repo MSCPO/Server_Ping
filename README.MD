@@ -1,5 +1,9 @@
 # 此项目已不再维护，请换用 [MSCPO/MineStatus](https://github.com/MSCPO/MineStatus)
 
+## 此项目已不再维护
+
+[MSCPO/MineStatus](https://github.com/MSCPO/MineStatus) 使用 Python 语言重构了Server_Ping，更加轻量，支持缓存，并且支持通用服务器查询（即未指定服务器是Java还是基岩也可查询）
+
 ## Server_Ping
 
 通过`UDP/TCP`协议获取MC的服务器状态，支持Vercel Serverless部署。
