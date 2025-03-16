@@ -1,3 +1,5 @@
+# 此项目已不再维护，请换用 [MSCPO/MineStatus](https://github.com/MSCPO/MineStatus)
+
 ## Server_Ping
 
 通过`UDP/TCP`协议获取MC的服务器状态，支持Vercel Serverless部署。
